@@ -7,9 +7,9 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 
-import Footer from './Components/Footer';
-import Header from './Components/Header';
-import WeatherScreen from './Screens/WeatherScreen';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import WeatherScreen from './screens/WeatherScreen';
 
 // All typographies will have Montserrat font family
 const theme = createMuiTheme({

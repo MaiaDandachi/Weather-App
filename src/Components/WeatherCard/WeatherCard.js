@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import useStyles from './WeatherCardStyles';
-import { Cloud, Snow, Sun, Rain } from '../../Assets/images';
+import { Cloud, Snow, Sun, Rain } from '../../assets/images';
 
 const WeatherCard = ({ weatherData }) => {
   const classes = useStyles();
