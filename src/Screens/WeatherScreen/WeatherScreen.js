@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import TempCheckbox from '../../Components/TempChexbox';
+import WeatherCard from '../../Components/WeatherCard';
 import useStyles from './WeatherScreenStyles';
 
 const WeatherScreen = () => {
@@ -13,18 +14,16 @@ const WeatherScreen = () => {
 
   const dummydata = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
-  // Default state is Fahrenheit
+  // Default unit is Fahrenheit
   const [tempUnit, setTempUnit] = useState('imperial');
 
   // Current Page index starts from 1
   const [currentPage, setCurrentPage] = useState(1);
 
   // Number of cards per page
-  const [cardsPerPage, setCardPerPage] = useState(3);
+  const cardsPerPage = 3;
 
-  const [numberOfPages, setNumberOfPages] = useState(
-    Math.ceil(dummydata.length / cardsPerPage)
-  );
+  const numberOfPages = Math.ceil(dummydata.length / cardsPerPage);
 
   const handleIncrement = () => {
     if (currentPage < numberOfPages) setCurrentPage(currentPage + 1);
@@ -33,8 +32,6 @@ const WeatherScreen = () => {
   const handleDecrement = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
-
-  console.log('currentPage', currentPage);
 
   return (
     <>
@@ -55,7 +52,7 @@ const WeatherScreen = () => {
             xs={12}
             style={{ marginTop: '15px' }}
             justify='space-between'
-            spacing={1}
+            // spacing={1}
           >
             <Grid item>
               {currentPage > 1 && (
@@ -75,14 +72,14 @@ const WeatherScreen = () => {
           </Grid>
 
           {/* 3rd row Cards */}
-          <Grid item container xs={12}>
+          <Grid item container xs={12} direction='row' spacing={1}>
             {dummydata
               .slice(
                 currentPage * cardsPerPage - cardsPerPage,
                 currentPage * cardsPerPage
               )
               .map((item, index) => {
-                return <Typography>{item}</Typography>;
+                return <WeatherCard />;
               })}
           </Grid>
         </Grid>
