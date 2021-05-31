@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 import {
   Card,
@@ -8,13 +10,13 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import moment from 'moment';
-
 import useStyles from './WeatherCardStyles';
+import { chartLabels, chartData } from '../../actions/ChartActions';
 import { Cloud, Snow, Sun, Rain } from '../../assets/images';
 
-const WeatherCard = ({ listOfWeather, date }) => {
+const WeatherCard = ({ listOfWeather, date, showChartHandler }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const icons = {
     Clear: Sun,
@@ -23,16 +25,36 @@ const WeatherCard = ({ listOfWeather, date }) => {
     Snow: Snow,
   };
 
-  var temperature_avg = parseInt(
+  const temperature_avg = parseInt(
     listOfWeather.reduce(function (prev, current) {
       return Math.ceil(prev + current.main.temp);
     }, 0) / listOfWeather.length
   );
 
+  console.log(listOfWeather);
+
+  // Create Labels array: [00:00, 09:00, ....] for chart
+  const labels = listOfWeather.map((weather) =>
+    weather.dt_txt.split(' ')[1].substr(0, 5)
+  );
+
+  //Create Data array: [52, 50, ...] with temperatures for chart
+  const data = listOfWeather.map((weather) => weather.main.temp);
+
+  const chartHandler = (labels, data) => {
+    dispatch(chartLabels(labels));
+    dispatch(chartData(data));
+    showChartHandler();
+  };
+
   return (
     <>
       <Grid container item xs={12} sm={4} justify='center'>
-        <Card variant='outlined' className={classes.card}>
+        <Card
+          variant='outlined'
+          className={classes.card}
+          onClick={() => chartHandler(labels, data)}
+        >
           <CardContent>
             <CardMedia
               className={classes.icon}

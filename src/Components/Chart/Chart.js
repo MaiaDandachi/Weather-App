@@ -1,21 +1,13 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-const Chart = () => {
+
+const Chart = ({ labels, data: chartData }) => {
   const data = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow',
-      'Green',
-      'Purple',
-      'Orange',
-      'O',
-      'Brown',
-    ],
+    labels: labels,
     datasets: [
       {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3, 4, 5],
+        label: 'Selected Hour Temperature',
+        data: chartData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -30,7 +22,20 @@ const Chart = () => {
 
   return (
     <div style={{ height: '300px', marginTop: '20px' }}>
-      <Bar data={data} options={{ maintainAspectRatio: false }} />
+      <Bar
+        data={data}
+        options={{
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: 'Temperature',
+              },
+            },
+          },
+        }}
+      />
     </div>
   );
 };

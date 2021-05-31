@@ -4,20 +4,19 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const TempCheckbox = (props) => {
-  // Handles the change of radio buttons and set state to the selected temperature unit
-  const handleTemChange = (event) => {
-    props.setUnit(event.target.value);
+const TempCheckbox = ({ unit, TempChangeHandler }) => {
+  //cahnge temp unit to C or F
+  const changeTempUnit = (event) => {
+    TempChangeHandler(event.target.value);
   };
-
   return (
     <>
       <RadioGroup
         row
         aria-label='temperature'
         name='temperature'
-        value={props.unit}
-        onChange={handleTemChange}
+        value={unit}
+        onChange={changeTempUnit}
       >
         <FormControlLabel
           value='metric'

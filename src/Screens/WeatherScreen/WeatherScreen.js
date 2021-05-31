@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Grid } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
@@ -20,15 +20,30 @@ const WeatherScreen = () => {
   const weatherList = useSelector((state) => state.weatherList);
   const { loading, error, weatherData } = weatherList;
 
+  const chartLabels = useSelector((state) => state.chartLabels);
+  const { labels } = chartLabels;
+
+  const chartData = useSelector((state) => state.chartData);
+  const { data } = chartData;
+
+  //-----------------------------------------------//
+
   // Default unit is Fahrenheit
   const [tempUnit, setTempUnit] = useState('imperial');
+
   // Current Page index starts from 1
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [showChart, setShowChart] = useState(false);
+
+  // --------------------------------------------//
 
   //Dispatch listWeather to get the weather for 5 days
   useEffect(() => {
     dispatch(listWeather(tempUnit));
   }, [dispatch, tempUnit]);
+
+  // -------------------------------------------//
 
   // group forecasts with same date --->
   // {2021-05-30 : [{ forecast 1}, {forecast 2}, {}], 2021-05-31: [{}, {}]}
@@ -40,9 +55,7 @@ const WeatherScreen = () => {
     return r;
   }, {});
 
-  // console.log(forecasts);
-
-  // console.log(forecasts && Object.keys(forecasts).length);
+  // --------------------------------------------//
 
   // Number of cards per page
   const cardsPerPage = 3;
@@ -75,6 +88,15 @@ const WeatherScreen = () => {
         return result;
       }, {});
 
+  const showChartHandler = () => {
+    setShowChart(true);
+  };
+
+  // Handles the change of radio buttons and set state to the selected temperature unit
+  const TempChangeHandler = (value) => {
+    setTempUnit(value);
+  };
+
   return (
     <>
       {loading ? (
@@ -87,7 +109,10 @@ const WeatherScreen = () => {
             {/* 1st row Radio Buttons*/}
             <Grid container item xs={12} justify='center'>
               <Grid item>
-                <TempCheckbox unit={tempUnit} setUnit={setTempUnit} />
+                <TempCheckbox
+                  unit={tempUnit}
+                  TempChangeHandler={TempChangeHandler}
+                />
               </Grid>
             </Grid>
 
@@ -123,21 +148,31 @@ const WeatherScreen = () => {
               {sliced_forecasts &&
                 Object.entries(sliced_forecasts).map(([key, value], index) => {
                   return (
-                    <WeatherCard listOfWeather={value} date={key} key={index} />
+                    <WeatherCard
+                      listOfWeather={value}
+                      date={key}
+                      key={index}
+                      showChartHandler={showChartHandler}
+                    />
                   );
                 })}
             </Grid>
-            <Grid
-              item
-              container
-              direction='row'
-              alignItems='center'
-              justify='center'
-            >
-              <Grid item xs={12} sm={9}>
-                <Chart />
+
+            {showChart && (
+              <Grid
+                item
+                container
+                direction='row'
+                alignItems='center'
+                justify='center'
+              >
+                <Grid item xs={12} sm={9}>
+                  <Paper className={classes.paper}>
+                    <Chart labels={labels} data={data} />
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
+            )}
           </Grid>
         </div>
       )}
