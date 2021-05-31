@@ -8,10 +8,12 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import moment from 'moment';
+
 import useStyles from './WeatherCardStyles';
 import { Cloud, Snow, Sun, Rain } from '../../assets/images';
 
-const WeatherCard = ({ weatherData }) => {
+const WeatherCard = ({ listOfWeather, date }) => {
   const classes = useStyles();
 
   const icons = {
@@ -21,6 +23,12 @@ const WeatherCard = ({ weatherData }) => {
     Snow: Snow,
   };
 
+  var temperature_avg = parseInt(
+    listOfWeather.reduce(function (prev, current) {
+      return Math.ceil(prev + current.main.temp);
+    }, 0) / listOfWeather.length
+  );
+
   return (
     <>
       <Grid container item xs={12} sm={4} justify='center'>
@@ -28,8 +36,7 @@ const WeatherCard = ({ weatherData }) => {
           <CardContent>
             <CardMedia
               className={classes.icon}
-              // image={icons[weatherData.weather.main]}
-              image={icons['Clear']}
+              image={icons[listOfWeather[0].weather[0].main]}
               title='Weather Icocn'
             />
             <Typography
@@ -39,7 +46,7 @@ const WeatherCard = ({ weatherData }) => {
               align='center'
               className={classes.textSpace}
             >
-              {20 + '°'}
+              {temperature_avg + ' °'}
             </Typography>
 
             <Typography
@@ -48,7 +55,7 @@ const WeatherCard = ({ weatherData }) => {
               align='center'
               component='p'
             >
-              Sun May 30 2021
+              {moment(date).format('ddd, DD MMM YYYY')}
             </Typography>
 
             <Typography
@@ -57,7 +64,7 @@ const WeatherCard = ({ weatherData }) => {
               align='center'
               className={classes.textSpace}
             >
-              Clouds
+              {listOfWeather[0].weather[0].main}
             </Typography>
           </CardContent>
         </Card>
