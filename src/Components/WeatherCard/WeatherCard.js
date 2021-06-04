@@ -12,7 +12,7 @@ import {
 
 import useStyles from './WeatherCardStyles';
 import { chartLabels, chartData } from '../../actions/ChartActions';
-import { Cloud, Snow, Sun, Rain } from '../../assets/images';
+import { Cloud, Snow, Sun, Rain } from '../../Assets/images';
 
 const WeatherCard = ({ listOfWeather, date, showChartHandler }) => {
   const classes = useStyles();
