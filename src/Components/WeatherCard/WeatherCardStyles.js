@@ -15,6 +15,15 @@ const useStyles = makeStyles((theme) => ({
   textSpace: {
     marginTop: '15px',
   },
+
+  card: {
+    transition: 'transform 0.5s',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+      cursor: 'pointer',
+    },
+  },
 }));
 
 export default useStyles;

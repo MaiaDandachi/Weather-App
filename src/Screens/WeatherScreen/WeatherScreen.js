@@ -47,7 +47,7 @@ const WeatherScreen = () => {
 
   // group forecasts with same date --->
   // {2021-05-30 : [{ forecast 1}, {forecast 2}, {}], 2021-05-31: [{}, {}]}
-  const forecasts = weatherData.list?.reduce(function (r, forecast) {
+  const forecasts = weatherData?.list?.reduce(function (r, forecast) {
     r[forecast.dt_txt.split(' ')[0]] = [
       ...(r[forecast.dt_txt.split(' ')[0]] || []),
       forecast,
@@ -128,7 +128,7 @@ const WeatherScreen = () => {
             >
               <Grid item>
                 {currentPage > 1 && (
-                  <IconButton onClick={handleDecrement}>
+                  <IconButton onClick={handleDecrement} className='decrease'>
                     <ArrowBackIosIcon fontSize='large' />
                   </IconButton>
                 )}
@@ -136,7 +136,7 @@ const WeatherScreen = () => {
 
               {currentPage < numberOfPages && (
                 <Grid item>
-                  <IconButton onClick={handleIncrement}>
+                  <IconButton onClick={handleIncrement} className='increase'>
                     <ArrowForwardIosIcon fontSize='large' />
                   </IconButton>
                 </Grid>

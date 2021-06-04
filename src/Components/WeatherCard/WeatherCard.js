@@ -25,13 +25,14 @@ const WeatherCard = ({ listOfWeather, date, showChartHandler }) => {
     Snow: Snow,
   };
 
+  // Calculates temp avg of hourly temperature for each day
   const temperature_avg = parseInt(
     listOfWeather.reduce(function (prev, current) {
       return Math.ceil(prev + current.main.temp);
     }, 0) / listOfWeather.length
   );
 
-  console.log(listOfWeather);
+  // console.log(listOfWeather);
 
   // Create Labels array: [00:00, 09:00, ....] for chart
   const labels = listOfWeather.map((weather) =>
@@ -67,6 +68,7 @@ const WeatherCard = ({ listOfWeather, date, showChartHandler }) => {
               component='h2'
               align='center'
               className={classes.textSpace}
+              data-testid='temperature_avg'
             >
               {temperature_avg + ' °'}
             </Typography>
