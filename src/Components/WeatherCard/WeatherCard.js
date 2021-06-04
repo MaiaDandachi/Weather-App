@@ -32,8 +32,6 @@ const WeatherCard = ({ listOfWeather, date, showChartHandler }) => {
     }, 0) / listOfWeather.length
   );
 
-  // console.log(listOfWeather);
-
   // Create Labels array: [00:00, 09:00, ....] for chart
   const labels = listOfWeather.map((weather) =>
     weather.dt_txt.split(' ')[1].substr(0, 5)
