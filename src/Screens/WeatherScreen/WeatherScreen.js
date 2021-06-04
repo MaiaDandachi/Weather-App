@@ -41,6 +41,7 @@ const WeatherScreen = () => {
   //Dispatch listWeather to get the weather for 5 days
   useEffect(() => {
     dispatch(listWeather(tempUnit));
+    setShowChart(false);
   }, [dispatch, tempUnit]);
 
   // -------------------------------------------//

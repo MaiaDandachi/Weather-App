@@ -13,7 +13,7 @@ export const listWeather =
 
       // Make request to OpenWeatherMap API
       const { data } = await axios.get(
-        `http://api.openweathermap.org/data/2.5/forecast?q=Istanbul&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40&units=${units}`
+        `http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40&units=${units}`
       );
 
       dispatch({ type: WEATHER_LIST_SUCCESS, payload: data });
