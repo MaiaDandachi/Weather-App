@@ -6,10 +6,10 @@ import { Grid, Paper } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-import TempCheckbox from '../../components/TempChexbox';
-import WeatherCard from '../../components/WeatherCard';
-import Chart from '../../components/Chart';
-import Loader from '../../components/Loader';
+import TempCheckbox from '../../Components/TempChexbox';
+import WeatherCard from '../../Components/WeatherCard';
+import Chart from '../../Components/Chart';
+import Loader from '../../Components/Loader';
 import useStyles from './WeatherScreenStyles';
 import { listWeather } from '../../actions/WeatherActions';
 
