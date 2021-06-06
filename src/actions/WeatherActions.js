@@ -13,7 +13,7 @@ export const listWeather =
 
       // Make request to OpenWeatherMap API
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40&units=${units}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=156c22169c72ad38806ee258dcf2fe3e&cnt=40&units=${units}`
       );
 
       dispatch({ type: WEATHER_LIST_SUCCESS, payload: data });
