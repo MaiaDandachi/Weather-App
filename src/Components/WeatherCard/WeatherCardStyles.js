@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   card: {
+    width: '200px',
     transition: 'transform 0.5s',
 
     '&:hover': {
