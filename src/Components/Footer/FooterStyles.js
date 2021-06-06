@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     // marginTop: 'calc(5% + 40px)',
     bottom: 0,
     textAlign: 'center',
-    paddingTop: '30vh',
+    paddingTop: '20vh',
     position: 'relative',
   },
 });
