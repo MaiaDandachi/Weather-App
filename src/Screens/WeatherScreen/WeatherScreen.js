@@ -68,11 +68,13 @@ const WeatherScreen = () => {
   //Increment current page index
   const handleIncrement = () => {
     if (currentPage < numberOfPages) setCurrentPage(currentPage + 1);
+    setShowChart(false);
   };
 
   // Decrement current page index
   const handleDecrement = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
+    setShowChart(false);
   };
 
   // Slice forecasts obj depending on the current page and number of cards
