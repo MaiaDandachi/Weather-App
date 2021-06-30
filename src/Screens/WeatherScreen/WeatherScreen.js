@@ -20,6 +20,13 @@ const WeatherScreen = () => {
   const weatherList = useSelector((state) => state.weatherList);
   const { loading, error, weatherData } = weatherList;
 
+  const weatherListCel = useSelector((state) => state.weatherListCel);
+  const {
+    loading: loadingCel,
+    error: errorCel,
+    weatherDataCel,
+  } = weatherListCel;
+
   const chartLabels = useSelector((state) => state.chartLabels);
   const { labels } = chartLabels;
 
@@ -36,25 +43,38 @@ const WeatherScreen = () => {
 
   const [showChart, setShowChart] = useState(false);
 
+  const [forecasts, setForecasts] = useState({});
+
   // --------------------------------------------//
 
   //Dispatch listWeather to get the weather for 5 days
   useEffect(() => {
-    dispatch(listWeather(tempUnit));
+    dispatch(listWeather());
     setShowChart(false);
-  }, [dispatch, tempUnit]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (tempUnit === 'metric') {
+      setForecasts(listConverter(weatherDataCel));
+    } else {
+      setForecasts(listConverter(weatherData));
+    }
+  }, [tempUnit, setForecasts, weatherData, weatherDataCel]);
 
   // -------------------------------------------//
 
   // group forecasts with same date --->
   // {2021-05-30 : [{ forecast 1}, {forecast 2}, {}], 2021-05-31: [{}, {}]}
-  const forecasts = weatherData?.list?.reduce(function (r, forecast) {
-    r[forecast.dt_txt.split(' ')[0]] = [
-      ...(r[forecast.dt_txt.split(' ')[0]] || []),
-      forecast,
-    ];
-    return r;
-  }, {});
+
+  const listConverter = (data) => {
+    return data?.list?.reduce(function (r, forecast) {
+      r[forecast.dt_txt.split(' ')[0]] = [
+        ...(r[forecast.dt_txt.split(' ')[0]] || []),
+        forecast,
+      ];
+      return r;
+    }, {});
+  };
 
   // --------------------------------------------//
 
@@ -156,6 +176,7 @@ const WeatherScreen = () => {
                       date={key}
                       key={index}
                       showChartHandler={showChartHandler}
+                      tempUnit={tempUnit}
                     />
                   );
                 })}
