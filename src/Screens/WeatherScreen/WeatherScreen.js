@@ -12,6 +12,7 @@ import Chart from '../../Components/Chart';
 import Loader from '../../Components/Loader';
 import useStyles from './WeatherScreenStyles';
 import { listWeather } from '../../actions/WeatherActions';
+import { chartLabels, chartData } from '../../actions/ChartActions';
 
 const WeatherScreen = () => {
   const classes = useStyles();
@@ -21,11 +22,7 @@ const WeatherScreen = () => {
   const { loading, error, weatherData } = weatherList;
 
   const weatherListCel = useSelector((state) => state.weatherListCel);
-  const {
-    loading: loadingCel,
-    error: errorCel,
-    weatherDataCel,
-  } = weatherListCel;
+  const { weatherDataCel } = weatherListCel;
 
   const chartLabels = useSelector((state) => state.chartLabels);
   const { labels } = chartLabels;
@@ -88,13 +85,13 @@ const WeatherScreen = () => {
   //Increment current page index
   const handleIncrement = () => {
     if (currentPage < numberOfPages) setCurrentPage(currentPage + 1);
-    setShowChart(false);
+    // setShowChart(false);
   };
 
   // Decrement current page index
   const handleDecrement = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
-    setShowChart(false);
+    // setShowChart(false);
   };
 
   // Slice forecasts obj depending on the current page and number of cards
@@ -167,7 +164,14 @@ const WeatherScreen = () => {
             </Grid>
 
             {/* 3rd row Cards */}
-            <Grid item container xs={12} direction='row' spacing={1}>
+            <Grid
+              item
+              container
+              xs={12}
+              direction='row'
+              spacing={1}
+              className='wearherList'
+            >
               {sliced_forecasts &&
                 Object.entries(sliced_forecasts).map(([key, value], index) => {
                   return (
